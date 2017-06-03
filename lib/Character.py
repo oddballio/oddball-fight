@@ -43,6 +43,12 @@ class Travis(Character):
             "name": "Poke", "dmg": 2, "mpc": 2}, {"name": "OpenRA", "dmg": 4, "mpc": 4}]
         self.skill_n = self.show_skill_names(self.skills)
 
+    def show_skills(self):
+        print "skills : {}" .format(self.skill_n)
+
+    def show_inventory(self):
+        print "inventory : {}".format(self.inventory)
+
 
 class Rob(Character):
     """Initializes Rob"""
@@ -55,6 +61,12 @@ class Rob(Character):
             "name": "Poke", "dmg": 2, "mpc": 2}, {"name": "OpenRA", "dmg": 4, "mpc": 4}]
         self.skill_n = self.show_skill_names(self.skills)
 
+    def show_skills(self):
+        print "skills : {}" .format(self.skill_n)
+
+    def show_inventory(self):
+        print "inventory : {}".format(self.inventory)
+
 
 class XiaoLu(Character):
     """Initializes XiaoLu"""
@@ -65,3 +77,9 @@ class XiaoLu(Character):
         self.weapon = "redbull can"
         self.skills = [{"name": "Attack", "dmg": 1000, "mpc": 1}]
         self.skill_n = self.show_skill_names(self.skills)
+
+    def show_skills(self):
+        print "skills : {}" .format(self.skill_n)
+
+    def show_inventory(self):
+        print "inventory : {}".format(self.inventory)

@@ -8,8 +8,8 @@ start_confirm = raw_input(
 p = re.compile('^Y|y|O|o')
 match = p.match(start_confirm)
 while match:
-    new_game.start_game()
-    new_game.choose_opponent(new_game.possible_opponent, new_game.all_char)
-    # new_game.confirm_opponent(new_game.all_char, new_game.possible_opponent)
+    new_game.start_game("user")
+    new_game.choose_opponent("opponent")
+    new_game.start_fight()
 else:
     print 'game ended'
