@@ -21,11 +21,16 @@ class Fight:
                 self.round_number += 1
 
                 user_skill = self.user.skills[int(s) - 1]
-                print "you used {}".format(user_skill.values()[0])
-                print "your {} caused {} dmg to {}!".format(user_skill.values()[0], user_skill.values()[2], self.opponent.name)
-                self.opponent.hp -= user_skill.values()[2]
-                print"{}'s hp : {} -> {}".format(self.opponent.name,
-                                                 self.opponent.hp + user_skill.values()[2], self.opponent.hp)
+                if user_skill.values()[1] <= self.user.mp:
+                    print "you used {}".format(user_skill.values()[0])
+                    print "your {} caused {} dmg to {}!".format(user_skill.values()[0], user_skill.values()[2], self.opponent.name)
+                    self.opponent.hp -= user_skill.values()[2]
+                    self.user.mp -= user_skill.values()[1]
+                    print"{}'s hp : {} -> {}".format(self.opponent.name,
+                                                     self.opponent.hp + user_skill.values()[2], self.opponent.hp)
+                    print"your mp : {} -> {}".format(self.user.mp + user_skill.values()[1], self.user.mp)
+                else:
+                    print "you dont have enough MP to activate that skill!"
             else:
                 print "that skill is not available, choose again"
 

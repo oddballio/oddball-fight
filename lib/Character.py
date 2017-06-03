@@ -58,7 +58,7 @@ class Rob(Character):
         self.char_class = charclass
         self.weapon = "nerdy wand"
         self.skills = [{"name": "Attack", "dmg": 1, "mpc": 0}, {
-            "name": "Poke", "dmg": 2, "mpc": 2}, {"name": "OpenRA", "dmg": 4, "mpc": 4}]
+            "name": "Nerdy Glare", "dmg": 3, "mpc": 2}, {"name": "Nerd Hand Gastures", "dmg": 4, "mpc": 5}]
         self.skill_n = self.show_skill_names(self.skills)
 
     def show_skills(self):
