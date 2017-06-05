@@ -34,7 +34,7 @@ class Game:
 
     def start_fight(self):
         fight = Fight(user=self.current_user_s,
-                      opponent=self.current_opponent_s)
+                      opponent=self.current_opponent_s, user_mp=self.current_user_s.mp, opp_mp=self.current_opponent_s.mp)
         fight.start_fight()
 
     def set_user_stat(self, name, player):
