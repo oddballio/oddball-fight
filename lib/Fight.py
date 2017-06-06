@@ -15,9 +15,11 @@ class Fight:
         self.opp_mp = opp_mp
         self.user_current_skill = ""
         self.opp_current_skill = ""
+        self.end_fight = False
 
     def start_fight(self):
-        self.attack()
+        while not self.end_fight:
+            self.attack()
 
     def attack(self):
         while self.user.hp > 0 and self.opponent.hp > 0:
@@ -34,11 +36,9 @@ class Fight:
             else:
                 print "that skill is not available, choose again"
 
-        if self.user.hp <= 0:
-            print "you died"
-
-        elif self.opponent.hp <= 0:
-            print "you won!"
+        self.handle_end_fight()
+        self.end_fight = True
+        print "HoLALALALALALALA {}".format(self.end_fight)
 
     def start_turn(self):
         print "Round {}".format(self.round_number + 1)
@@ -67,7 +67,7 @@ class Fight:
     def opponent_attack(self):
         random_attack = random.choice(self.opponent.skills).values()
         if random_attack[1] <= self.opponent.mp:
-            print "{} used".format(self.opponent.name)
+            print "{} used {}".format(self.opponent.name, random_attack[0])
             print "{}'s {} caused {} dmg to you!".format(self.opponent.name, random_attack[0], random_attack[2])
             self.user.hp -= random_attack[2]
             self.opponent.mp -= random_attack[1]
@@ -80,3 +80,14 @@ class Fight:
         print "your mp: {} -> {}".format(self.user.mp + user_skill_used[1], self.user.mp)
         print "{}'s hp: {} -> {}".format(self.opponent.name, self.opponent.hp + user_skill_used[2], self.opponent.hp)
         print "{}'s mp: {} -> {}".format(self.opponent.name, self.opponent.mp + opp_skill_used[1], self.opponent.mp)
+
+    def handle_end_fight(self):
+        if self.user.hp <= 0:
+            print "You died! You've gained {} exp!".format(self.user.exp + 2)
+            self.user.exp += 2
+        elif self.opponent.hp <= 0:
+            print "You won! You've gained {} exp!".format(self.user.exp + 5)
+            self.user.exp += 5
+            print self.user.exp
+        if self.user.exp >= self.user.exp_cap:
+            self.user.level += 1

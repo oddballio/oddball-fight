@@ -14,6 +14,8 @@ class Character:
         self.level = 0
         self.char_class = charclass
         self.inventory = []
+        self.exp = 0
+        self.exp_cap = 20 + self.level * 5
 
     def show_stats(self):
         """prints character stats to the ternimal"""
@@ -39,8 +41,8 @@ class Travis(Character):
         Character.__init__(self, name, hp, mp, charclass)
         self.char_class = charclass
         self.weapon = "stick"
-        self.skills = [{"name": "Attack", "dmg": 1, "mpc": 0}, {
-            "name": "Poke", "dmg": 2, "mpc": 2}, {"name": "OpenRA", "dmg": 4, "mpc": 4}]
+        self.skills = [{"name": "Attack", "dmg": self.level + 1, "mpc": 0}, {
+            "name": "Poke", "dmg": self.level + 2, "mpc": 2}, {"name": "OpenRA", "dmg": self.level + 4, "mpc": 4}]
         self.skill_n = self.show_skill_names(self.skills)
 
     def show_skills(self):
@@ -57,8 +59,8 @@ class Rob(Character):
         Character.__init__(self, name, hp, mp, charclass)
         self.char_class = charclass
         self.weapon = "nerdy wand"
-        self.skills = [{"name": "Attack", "dmg": 1, "mpc": 0}, {
-            "name": "Nerdy Glare", "dmg": 3, "mpc": 2}, {"name": "Nerd Hand Gastures", "dmg": 4, "mpc": 5}]
+        self.skills = [{"name": "Attack", "dmg": self.level + 1, "mpc": 0}, {
+            "name": "Nerdy Glare", "dmg": self.level + 3, "mpc": 2}, {"name": "Nerd Hand Gastures", "dmg": self.level + 5, "mpc": 4}]
         self.skill_n = self.show_skill_names(self.skills)
 
     def show_skills(self):
