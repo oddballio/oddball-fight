@@ -28,12 +28,16 @@ class Game:
             print "you cant choose that player as opponent"
 
     def confirm_opponent(self, player):
+        self.set_user_stat()
+        print self.current_opponent_s.__dict__
+
+        self.current_opponent_s.show_stats()
+        self.current_opponent_s.show_skills()
         s = raw_input(
             "are you sure you want to fight {}? y/n :".format(self.current_opponent))
         p = re.compile('^Y|y|O|o')
         match = p.match(s)
         if match:
-            self.set_user_stat()
             print "Fight Start {} VS {}".format(self.current_user, self.current_opponent)
             self.first_time = False
         else:
@@ -42,10 +46,7 @@ class Game:
     def start_fight(self):
         fight = Fight(user=self.current_user_s,
                       opponent=self.current_opponent_s, user_mp=self.current_user_s.mp, opp_mp=self.current_opponent_s.mp)
-        if fight.end_fight:
-            print self.possible_opponent
-        else:
-            fight.start_fight()
+        fight.start_fight()
 
     def set_user_stat(self):
         all_char = [XiaoLu("xiaolu", 200, 300, "GM"), Rob(
@@ -58,18 +59,22 @@ class Game:
                     self.current_opponent_s = item
             else:
                 if self.current_user_s.name == item.name:
-                    flag = True
-                    if flag:
-                        print flag
-                        item.exp = self.current_user_s.exp
-                        item.level = self.current_user_s.level
-                        self.current_user_s = item
-                        self.current_user_s.exp_cap = (
-                            self.current_user_s.level + 1) * 20
-                        flag = False
+                    item.exp = self.current_user_s.exp
+                    item.level = self.current_user_s.level
+
+                    self.current_user_s = item
+                    self.current_user_s.exp_cap += item.exp_cap * self.current_user_s.level
+                    self.current_user_s.hp += self.current_user_s.level
+                    self.increase_attack_damage(self.current_user_s)
                 elif self.current_opponent_s.name == item.name:
                     item.level = self.current_opponent_s.level
                     self.current_opponent_s = item
+                    self.current_opponent_s.hp += self.current_opponent_s.level
+                    self.increase_attack_damage(self.current_opponent_s)
+
+    def increase_attack_damage(self, player):
+        for index, item in enumerate(player.skills):
+            player.skills[index]['dmg'] += player.level
 
     def set_opponent(self, s):
         opponents = ['xiaolu', 'travis', 'rob']
@@ -112,4 +117,5 @@ class Game:
                 print "you are not one of oddball yet!"
         else:
             self.set_user_stat()
+            print self.current_user_s.__dict__
             self.end_fight = False

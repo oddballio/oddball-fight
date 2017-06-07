@@ -1,6 +1,5 @@
 # pylint: disable=invalid-name, line-too-long
 
-import pprint
 import random
 
 
@@ -44,7 +43,6 @@ class Fight:
         self.round_number += 1
 
     def regen_mp(self):
-        print self.user_mp, self.opp_mp
         if self.user.mp != self.user_mp:
             self.user.mp += 1
             print "You gained 1 mp."
@@ -90,3 +88,6 @@ class Fight:
         if self.user.exp >= self.user.exp_cap:
             self.user.level += 1
             self.opponent.level += 1
+            print "You've leveled up! {} -> {}".format(self.user.level - 1, self.user.level)
+            print "Your hp increased by {}".format(self.user.level)
+            self.user.show_inventory()

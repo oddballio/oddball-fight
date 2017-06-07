@@ -9,9 +9,9 @@ class Character:
         """Initializes the data."""
 
         self.name = name
-        self.hp = hp
-        self.mp = mp
         self.level = 0
+        self.hp = self.level + hp
+        self.mp = int(self.hp * 0.8)
         self.char_class = charclass
         self.inventory = []
         self.exp = 0
