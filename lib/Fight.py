@@ -1,6 +1,5 @@
 # pylint: disable=invalid-name, line-too-long
 
-import pprint
 import random
 
 
@@ -38,14 +37,12 @@ class Fight:
 
         self.handle_end_fight()
         self.end_fight = True
-        print "HoLALALALALALALA {}".format(self.end_fight)
 
     def start_turn(self):
         print "Round {}".format(self.round_number + 1)
         self.round_number += 1
 
     def regen_mp(self):
-        print self.user_mp, self.opp_mp
         if self.user.mp != self.user_mp:
             self.user.mp += 1
             print "You gained 1 mp."
@@ -83,11 +80,14 @@ class Fight:
 
     def handle_end_fight(self):
         if self.user.hp <= 0:
-            print "You died! You've gained {} exp!".format(self.user.exp + 2)
+            print "You died! You've gained 2 exp!"
             self.user.exp += 2
         elif self.opponent.hp <= 0:
-            print "You won! You've gained {} exp!".format(self.user.exp + 5)
+            print "You won! You've gained 5 exp!"
             self.user.exp += 5
-            print self.user.exp
         if self.user.exp >= self.user.exp_cap:
             self.user.level += 1
+            self.opponent.level += 1
+            print "You've leveled up! {} -> {}".format(self.user.level - 1, self.user.level)
+            print "Your hp increased by {}".format(self.user.level)
+            self.user.show_inventory()
