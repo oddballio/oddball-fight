@@ -61,6 +61,7 @@ class Game:
             else:
                 if self.current_user_s.name == item.name:
                     item.exp = self.current_user_s.exp
+                    item.score = self.current_user_s.score
                     item.level = self.current_user_s.level
                     item.weapon = self.current_user_s.weapon
                     item.inventory = self.current_user_s.inventory
@@ -70,6 +71,7 @@ class Game:
                     self.increase_attack_damage(self.current_user_s)
                 elif self.current_opponent_s.name == item.name:
                     item.level = self.current_opponent_s.level
+                    item.score = self.current_opponent_s.score
                     self.current_opponent_s = item
                     self.current_opponent_s.hp += int(
                         self.current_opponent_s.level * 1.5)
