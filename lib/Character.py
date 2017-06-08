@@ -33,6 +33,21 @@ class Character:
             result.append(item.items()[0][1])
         return result
 
+    def store_item(self, item):
+        """put an item into inventory"""
+        self.inventory.append(item)
+
+    def delete_item(self, index):
+        """deletes an item from inventory"""
+        del self.inventory[index]
+
+    def delete_then_store(self, item):
+        s = raw_input(
+            "which item do you want to delete? enter number : ")
+        self.delete_item(int(s) - 1)
+        self.store_item(item)
+        print "item deleted, {} stored in your inventory".format(item["name"])
+
 
 class Travis(Character):
     """Initializes Travis."""
@@ -40,16 +55,19 @@ class Travis(Character):
     def __init__(self, name, hp, mp, charclass):
         Character.__init__(self, name, hp, mp, charclass)
         self.char_class = charclass
-        self.weapon = "stick"
-        self.skills = [{"name": "Attack", "dmg": self.level + 1, "mpc": 0}, {
+        self.weapon = {"name": "stick", "dmg": 1}
+        self.skills = [{"name": "Attack", "dmg": self.weapon["dmg"] + self.level, "mpc": 0}, {
             "name": "Poke", "dmg": self.level + 2, "mpc": 2}, {"name": "OpenRA", "dmg": self.level + 4, "mpc": 4}]
         self.skill_n = self.show_skill_names(self.skills)
 
     def show_skills(self):
-        print "skills : {}" .format(self.skill_n)
+        print "skills : {}".format(self.skill_n)
 
     def show_inventory(self):
         print "inventory : {}".format(self.inventory)
+
+    def show_euipment(self):
+        print "euipped: {}".format(self.weapon["name"])
 
 
 class Rob(Character):
@@ -58,8 +76,8 @@ class Rob(Character):
     def __init__(self, name, hp, mp, charclass):
         Character.__init__(self, name, hp, mp, charclass)
         self.char_class = charclass
-        self.weapon = "nerdy wand"
-        self.skills = [{"name": "Attack", "dmg": self.level + 1, "mpc": 0}, {
+        self.weapon = {"name": "nerdy wand", "dmg": 1}
+        self.skills = [{"name": "Attack", "dmg": self.weapon["dmg"] + self.level, "mpc": 0}, {
             "name": "Nerdy Glare", "dmg": self.level + 3, "mpc": 2}, {"name": "Nerd Hand Gastures", "dmg": self.level + 5, "mpc": 4}]
         self.skill_n = self.show_skill_names(self.skills)
 
@@ -69,6 +87,9 @@ class Rob(Character):
     def show_inventory(self):
         print "inventory : {}".format(self.inventory)
 
+    def show_euipment(self):
+        print "euipped: {}".format(self.weapon["name"])
+
 
 class XiaoLu(Character):
     """Initializes XiaoLu"""
@@ -76,8 +97,9 @@ class XiaoLu(Character):
     def __init__(self, name, hp, mp, charclass):
         Character.__init__(self, name, hp, mp, charclass)
         self.char_class = charclass
-        self.weapon = "redbull can"
-        self.skills = [{"name": "Attack", "dmg": 1000, "mpc": 1}]
+        self.weapon = {"name": "redbull can", "dmg": 300}
+        self.skills = [
+            {"name": "Attack", "dmg": self.weapon["dmg"] + self.level, "mpc": 1}]
         self.skill_n = self.show_skill_names(self.skills)
 
     def show_skills(self):
@@ -85,3 +107,6 @@ class XiaoLu(Character):
 
     def show_inventory(self):
         print "inventory : {}".format(self.inventory)
+
+    def show_euipment(self):
+        print "euipped: {}".format(self.weapon["name"])

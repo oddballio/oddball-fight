@@ -29,10 +29,11 @@ class Game:
 
     def confirm_opponent(self, player):
         self.set_user_stat()
-        print self.current_opponent_s.__dict__
+        # print self.current_opponent_s.__dict__
 
         self.current_opponent_s.show_stats()
         self.current_opponent_s.show_skills()
+        self.current_opponent_s.show_euipment()
         s = raw_input(
             "are you sure you want to fight {}? y/n :".format(self.current_opponent))
         p = re.compile('^Y|y|O|o')
@@ -61,7 +62,8 @@ class Game:
                 if self.current_user_s.name == item.name:
                     item.exp = self.current_user_s.exp
                     item.level = self.current_user_s.level
-
+                    item.weapon = self.current_user_s.weapon
+                    item.inventory = self.current_user_s.inventory
                     self.current_user_s = item
                     self.current_user_s.exp_cap += item.exp_cap * self.current_user_s.level
                     self.current_user_s.hp += self.current_user_s.level
@@ -74,7 +76,11 @@ class Game:
 
     def increase_attack_damage(self, player):
         for index, item in enumerate(player.skills):
-            player.skills[index]['dmg'] += player.level
+            if player.skills[index]["name"] == "Attack":
+                player.skills[index]['dmg'] += player.level + \
+                    player.weapon['dmg']
+            else:
+                player.skills[index]['dmg'] += player.level
 
     def set_opponent(self, s):
         opponents = ['xiaolu', 'travis', 'rob']
@@ -92,6 +98,7 @@ class Game:
                 self.travis.show_stats()
                 self.travis.show_skills()
                 self.travis.show_inventory()
+                self.travis.show_euipment()
                 print "you are now {}".format(s)
                 self.set_opponent(s)
 
@@ -101,15 +108,17 @@ class Game:
                 self.rob.show_stats()
                 self.rob.show_skills()
                 self.rob.show_inventory()
+                self.rob.show_euipment()
                 print "you are now {}".format(s)
                 self.set_opponent(s)
 
             elif len(s) and s == "xiaolu":
                 self.current_user_s = self.xiaolu
+                self.current_user = "xiaolu"
                 self.xiaolu.show_stats()
                 self.xiaolu.show_skills()
                 self.xiaolu.show_inventory()
-                self.current_user = "xiaolu"
+                self.xiaolu.show_euipment()
                 print "you are now {}".format(s)
                 self.set_opponent(s)
 
@@ -117,5 +126,5 @@ class Game:
                 print "you are not one of oddball yet!"
         else:
             self.set_user_stat()
-            print self.current_user_s.__dict__
+            # print self.current_user_s.__dict__
             self.end_fight = False
