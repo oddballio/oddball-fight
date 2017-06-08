@@ -83,10 +83,16 @@ class Fight:
         if self.user.hp <= 0:
             print "You died! You've gained 2 exp!"
             self.user.exp += 2
+            self.opponent.score += 1
+            print "your score: {}".format(self.user.score)
+            print "{}'s score: {}".format(self.opponent.name, self.opponent.score)
         elif self.opponent.hp <= 0:
             print "You won! You've gained 5 exp!"
             self.user.exp += 5
             self.handle_loot()
+            self.user.score += 1
+            print "your score: {}".format(self.user.score)
+            print "{}'s score: {}".format(self.opponent.name, self.opponent.score)
         if self.user.exp >= self.user.exp_cap:
             self.user.level += 1
             self.opponent.level += 1

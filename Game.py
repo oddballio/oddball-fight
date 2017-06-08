@@ -71,7 +71,8 @@ class Game:
                 elif self.current_opponent_s.name == item.name:
                     item.level = self.current_opponent_s.level
                     self.current_opponent_s = item
-                    self.current_opponent_s.hp += self.current_opponent_s.level
+                    self.current_opponent_s.hp += int(
+                        self.current_opponent_s.level * 1.5)
                     self.increase_attack_damage(self.current_opponent_s)
 
     def increase_attack_damage(self, player):
