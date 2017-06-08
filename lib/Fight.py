@@ -1,6 +1,7 @@
 # pylint: disable=invalid-name, line-too-long
-
+import re
 import random
+from Items import get_items
 
 
 class Fight:
@@ -85,9 +86,40 @@ class Fight:
         elif self.opponent.hp <= 0:
             print "You won! You've gained 5 exp!"
             self.user.exp += 5
+            self.handle_loot()
         if self.user.exp >= self.user.exp_cap:
             self.user.level += 1
             self.opponent.level += 1
             print "You've leveled up! {} -> {}".format(self.user.level - 1, self.user.level)
             print "Your hp increased by {}".format(self.user.level)
             self.user.show_inventory()
+
+    def handle_loot(self):
+        item = get_items(self.opponent.name)
+        if len(item.keys()):
+            print "{} dropped you {}.".format(self.opponent.name, item["name"])
+            print "item stat: +{} dmg".format(item.values()[1])
+            s = raw_input("Do you wish to equip? y/n : ")
+            p = re.compile('^Y|y|O|o')
+            match = p.match(s)
+            if match:
+                old_weapon = self.user.weapon
+                if len(self.user.inventory) < 3:
+                    self.user.store_item(old_weapon)
+                else:
+                    print "your inventory is full!"
+                    self.user.show_inventory()
+                    self.user.delete_then_store(old_weapon)
+                self.user.weapon = item
+                print "equiped {}, previous weapon stored in your inventory".format(item["name"])
+                self.user.show_inventory()
+            else:
+                if len(self.user.inventory) < 3:
+                    self.user.store_item(item)
+                    print "item stored in your inventory"
+                else:
+                    print "your inventory is full!"
+                    self.user.show_inventory()
+                    self.user.delete_then_store(item)
+        else:
+            print "No loot dropped"
