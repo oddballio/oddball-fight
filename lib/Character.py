@@ -16,6 +16,7 @@ class Character:
         self.inventory = []
         self.exp = 0
         self.exp_cap = 20 + self.level * 5
+        self.score = 0
 
     def show_stats(self):
         """prints character stats to the ternimal"""
@@ -25,6 +26,7 @@ class Character:
         print "hp: {}".format(self.hp)
         print "mp: {}".format(self.mp)
         print "class: {}".format(self.char_class)
+        print "score: {}".format(self.score)
 
     def show_skill_names(self, skills):
         """prints skill names in an array"""
