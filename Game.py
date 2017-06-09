@@ -30,7 +30,6 @@ class Game:
     def confirm_opponent(self, player):
         self.set_user_stat()
         # print self.current_opponent_s.__dict__
-
         self.current_opponent_s.show_stats()
         self.current_opponent_s.show_skills()
         self.current_opponent_s.show_euipment()
@@ -54,9 +53,9 @@ class Game:
             "rob", 15, 15, "Nerd"), Travis("travis", 20, 10, "Business Man")]
         for item in all_char:
             if self.first_time:
-                if item.name == self.current_user:
+                if self.current_user == item.name:
                     self.current_user_s = item
-                elif item.name == self.current_opponent:
+                elif self.current_opponent == item.name:
                     self.current_opponent_s = item
             else:
                 if self.current_user_s.name == item.name:
@@ -69,7 +68,7 @@ class Game:
                     self.current_user_s.exp_cap += item.exp_cap * self.current_user_s.level
                     self.current_user_s.hp += self.current_user_s.level
                     self.increase_attack_damage(self.current_user_s)
-                elif self.current_opponent_s.name == item.name:
+                elif self.current_opponent == item.name:
                     item.level = self.current_opponent_s.level
                     item.score = self.current_opponent_s.score
                     self.current_opponent_s = item
